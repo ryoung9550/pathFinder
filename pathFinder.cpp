@@ -14,7 +14,7 @@ const int screenWidth = 500;
 const int w = screenWidth / gridSize; // square width
 const unsigned CPS = 1000; // Cycles per second
 const Uint32 cycleTime = 1000 / CPS; // Cycle time in milliseconds
-const int heuristicStrength = 10;
+const int heuristicStrength = 8;
 const int movingCost = 25;
 const int wallPercent = 10;
 
@@ -113,6 +113,8 @@ int main() {
 								   0);
 
 	if(window == nullptr) {
+		std::cout << "ERROR: Window did not initialize! " << SDL_GetError() << '\n';
+		return 1;
 	}
 
 	SDL_Surface* winSurf = SDL_GetWindowSurface(window);
@@ -245,8 +247,8 @@ int main() {
 
 		Uint32 currentTicks = SDL_GetTicks();
 		Uint32 tickCycle = currentTicks - startTicks;
-		//if(tickCycle < cycleTime)
-			//SDL_Delay(cycleTime - tickCycle);
+		if(tickCycle < cycleTime)
+			SDL_Delay(cycleTime - tickCycle);
 
 	}
 
